@@ -78,7 +78,7 @@ def search_by_name(corp_name:str):
 
 def main():
     #print(search_by_name("株式会社スペース・アイ"))
-    st.write(search_by_name("スペース・アイ"))
+    st.write(json.dumps(search_by_name("スペース・アイ")))
         
 if __name__ == '__main__':
     main()
