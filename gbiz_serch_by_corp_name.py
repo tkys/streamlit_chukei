@@ -7,7 +7,7 @@ import json
 #for search
 endpoint_url = "https://info.gbiz.go.jp/api/v1/hojin"
 
-token = st.secret["gbiz_token"]
+token = st.secrets["gbiz_token"]
 st.write(token)
 
 headers = {
