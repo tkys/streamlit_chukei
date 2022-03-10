@@ -70,7 +70,7 @@ def search_by_name(corp_name:str):
 
             return_list.append(return_dic)
 
-        result = {"status":json_data["message"], "body":json.dumps(return_list,ensure_ascii = False)}
+        result = {"status":json_data["message"], "body":json.dumps(return_list)}
         #result = return_list
      
     return result
