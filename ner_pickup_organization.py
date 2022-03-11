@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 import streamlit as st
-from annotated_text import annotated_text
+#from annotated_text import annotated_text
 
 #text_input = "10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。秋に診療やリハビリといった総合医療施設を導入予定で、地域住民の生活に密着した商業.."
 @st.cache
