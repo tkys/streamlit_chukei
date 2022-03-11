@@ -3,30 +3,30 @@ import streamlit as st
 import requests
 import json
 
+import pandas as pd
+
 import time
+
+@st.cache
 def now_time():
     now = time.localtime()
     d = time.strftime('%Y%m%d%H%M%S', now)  # YYYYMMDDhhmmssに書式化
     return d
 
-#for search
+
+### search_by_name 
+
 endpoint_url = "https://info.gbiz.go.jp/api/v1/hojin"
-
-token = st.secrets["gbiz_token"]
-st.write(token)
-
-headers = {
-            "Accept": "application/json",
-            "X-hojinInfo-api-token": token
-        }
-
+token = "st.secrets["gbiz_token"]"
 token = "M3zZzZx8sFaGeQVY78PHgHCliCCIZT8M"
-
 headers = {
             "Accept": "application/json",
             "X-hojinInfo-api-token": token
         }
 
+
+
+@st.cache
 def search_by_name(corp_name:str):
     params = {"name":corp_name}
     res = requests.get(
@@ -45,41 +45,44 @@ def search_by_name(corp_name:str):
 
     return_list =[]
 
-    #print(json_data["message"])
+    return res.json()
 
-    if json_data["message"] !=  "200 - OK.":
-        result = {"status":json_data["message"], "body":""}
-        
+@st.cache
+def convert_df(df):
+    return df.to_csv().encode('utf-8')
+
+#############
+import streamlit as st
+
+
+st.title("Search companys-info")
+#sideb = st.sidebar
+#check1 = sideb.button("Check or not?")
+textbyuser = st.text_input("Enter some text", placeholder= "i.e. 中部経済新聞社")
+check2 = st.button("Search Company-info")
+
+#if check1:
+#    st.info("Code is analyzing your text.")
+#    #Your code to analyze the sentiment that only works when the button is clicked.
+
+
+if check2:
+    response = search_by_name(textbyuser)
+    if  len(response["hojin-infos"]) == 0:     
+        st.info(len(response["hojin-infos"]))
     else:
-        for i in range(len(json_data['hojin-infos'])):
+        st.text("result : " +  str(len(response["hojin-infos"])) )
+        #st.info(search_by_name(textbyuser)["hojin-infos"])
+        st.write(pd.DataFrame(response["hojin-infos"]))
 
-            #print(json_data['hojin-infos'][0]["name"])
-            return_dic= {
-           'search_id'         : "",
-            'name'              : "",
-            'location'          : "",
-            'corporate_number'  : "",
-            "update_date"       : ""
-            }
+       
+        df = pd.DataFrame(response["hojin-infos"])
+        csv = convert_df(df)
 
-            return_dic["search_id"]         = str(now_time()) + "_" + str(i)
-            return_dic["name"]              = json_data['hojin-infos'][i]["name"]
-            return_dic["location"]          = json_data['hojin-infos'][i]["location"]
-            return_dic["corporate_number"]  = json_data['hojin-infos'][i]["corporate_number"]
-            return_dic["update_date"]       = json_data['hojin-infos'][i]["update_date"]
-
-            return_list.append(return_dic)
-
-        result = {"status":json_data["message"], "body":json.dumps(return_list, ensure_ascii = False)}
-        #result = return_list
-     
-    return result
-   
-
-def main():
-    #print(search_by_name("株式会社スペース・アイ"))
-    st.write(json.dumps(search_by_name("スペース・アイ"), ensure_ascii = False))
-    st.json(search_by_name("スペース・アイ"))
-    
-if __name__ == '__main__':
-    main()
+        st.download_button(
+            "Download .csv",
+            csv,
+            "file.csv",
+            "text/csv",
+            key='download-csv'
+        )
