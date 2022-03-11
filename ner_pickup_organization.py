@@ -4,12 +4,12 @@ import streamlit as st
 from annotated_text import annotated_text
 
 #text_input = "10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。秋に診療やリハビリといった総合医療施設を導入予定で、地域住民の生活に密着した商業.."
-
-def sample(query):
-    """ requests sample that use qiita search api
-    >>> 'title' in sample('python')
+@st.cache
+def req(query):
+    """ requests . that use qiita search api
+    >>> 'title' in req('python')
     True
-    >>> 'totle' in sample('python')
+    >>> 'totle' in req('python')
     False
     """
     q = {'input_text':  query}
@@ -32,17 +32,17 @@ def sample(query):
 
     return response
 
-st.title("ニュースコンテンツからの組織抽出")
+st.title("Pick up organizations from News")
 text_input = st.text_input("Enter some text", placeholder= "i.e. 10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。")
 check1 = st.button("Pick UP Organazaqtions")
 if check1:
     st.info("Code is analyzing your text.")
-    response = sample(text_input)
+    response = req(text_input)
     #print(response)
     st.info(response)
     st.write(pd.DataFrame(response))
 
-    #input_dict = sample(text_input)
+    #input_dict = req(text_input)
     #str_position_dic = [x for x in input_dict if x['BeginOffset'] == 'ORGANIZATION'] # ORGANIZATION だけ抽出
 
     str_position_dic = []
@@ -56,7 +56,7 @@ if check1:
     def convert_df(df):
         return df.to_csv().encode('utf-8')
     
-    
+
     df = pd.DataFrame(response)
     csv = convert_df(df)
 
