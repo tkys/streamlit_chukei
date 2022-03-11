@@ -17,7 +17,7 @@ def now_time():
 ### search_by_name 
 
 endpoint_url = "https://info.gbiz.go.jp/api/v1/hojin"
-token = "st.secrets["gbiz_token"]"
+token = st.secrets["gbiz_token"]
 #token = "M3zZzZx8sFaGeQVY78PHgHCliCCIZT8M"
 headers = {
             "Accept": "application/json",
