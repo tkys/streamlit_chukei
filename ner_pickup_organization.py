@@ -27,7 +27,7 @@ def req(query):
     input_dict =  r.json()['response']
     #print(input_dict)
     
-    output_dict = [x for x in input_dict if x['Type'] == 'ORGANIZATION'] # ORGANIZATION だけ抽出
+    output_dict = [x for x in input_dict if x['Type'] != ''] # ORGANIZATION だけ抽出
     response = output_dict
 
     return response
