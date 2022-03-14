@@ -55,7 +55,7 @@ def convert_df(df):
 import streamlit as st
 
 
-st.title("Search companys-info")
+st.title("Search companys-info 🏢")
 #sideb = st.sidebar
 #check1 = sideb.button("Check or not?")
 textbyuser = st.text_input("Enter some text", placeholder= "i.e. 中部経済新聞社")
