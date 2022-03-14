@@ -51,7 +51,6 @@ def res_2_df_csvdownload_button(response):
 
 st.title("Pick up organizations from News")
 text_input = st.text_input("Enter some text", placeholder= "i.e. 10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。")
-st.text(text_input)
 
 if text_input != "":
     st.subheader("text_input")
@@ -62,7 +61,6 @@ select_entities = st.multiselect(
     ['COMMERCIAL_ITEM', 'DATE', 'EVENT', 'LOCATION', 'ORGANIZATION', 'PERSON', 'QUANTITY', 'TITLE', 'OTHER'],
     ['ORGANIZATION'])  #  default only 'ORGANIZATION'
 
-#st.table(select_entities)
 #st.text(select_entities)
 
 check = st.button("Pick-up Entities")
@@ -71,24 +69,24 @@ check = st.button("Pick-up Entities")
 if check:
     TARGET = select_entities
     #st.info("Now analyzing your text...")
+    
+    # call api to amazon comprehend  & filtering keywords with in multipul setelctor 
     response = req(text_input,TARGET)
     #print(response)
     #st.info(response)
 
-
+    # show result 
     st.text("result : " +  str( len(response) )  )
     st.write(pd.DataFrame(response))
 
     #input_dict = req(text_input)
     #str_position_dic = [x for x in input_dict if x['BeginOffset'] == TARGET ] # ORGANIZATION だけ抽出
 
-    str_position_dic = []
-   
+    #str_position_dic = []
     #for i in response:
     #    str_position_dic.append(i['BeginOffset'])
     #    str_position_dic.append(i['EndOffset'])
     
+    # show csv download button
     res_2_df_csvdownload_button(response)
     
-
-
