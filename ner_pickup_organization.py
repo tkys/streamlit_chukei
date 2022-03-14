@@ -5,7 +5,7 @@ import streamlit as st
 
 #text_input = "10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。秋に診療やリハビリといった総合医療施設を導入予定で、地域住民の生活に密着した商業.."
 @st.cache
-def req(query):
+def req(query,TARGET):
     """ requests . that use qiita search api
     >>> 'title' in req('python')
     True
@@ -27,7 +27,7 @@ def req(query):
     input_dict =  r.json()['response']
     #print(input_dict)
     
-    output_dict = [x for x in input_dict if x['Type'] != ''] # ORGANIZATION だけ抽出
+    output_dict = [x for x in input_dict if x['Type'] == TARGET] # ORGANIZATION だけ抽出
     response = output_dict
 
     return response
@@ -51,6 +51,7 @@ st.title("Pick up organizations from News")
 text_input = st.text_input("Enter some text", placeholder= "i.e. 10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。")
 check1 = st.button("Pick UP Organazaqtions")
 if check1:
+    TARGET = 'ORGANIZATION'
     st.info("Code is analyzing your text.")
     response = req(text_input)
     #print(response)
