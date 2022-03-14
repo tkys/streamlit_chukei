@@ -36,7 +36,6 @@ def req(query):
 def convert_df_to_csv(df):
     return df.to_csv().encode('utf-8')
 
-@st.cache
 def res_2_df_csvdownload_button(response):
     df = pd.DataFrame(response)
     csv = convert_df_to_csv(df)
