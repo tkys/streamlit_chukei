@@ -52,6 +52,16 @@ def res_2_df_csvdownload_button(response):
 st.title("Pick up organizations from News")
 text_input = st.text_input("Enter some text", placeholder= "i.e. 10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。")
 check1 = st.button("Pick UP Organazaqtions")
+
+options = st.multiselect(
+    'What are your favorite colors',
+    ['Green', 'Yellow', 'Red', 'Blue'],
+    ['Yellow', 'Red'])
+
+st.table(options)
+st.text(options)
+
+
 if check1:
     TARGET = 'ORGANIZATION'
     st.info("Code is analyzing your text.")
