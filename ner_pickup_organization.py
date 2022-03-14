@@ -56,7 +56,7 @@ if text_input != None:
     st.info(text_input)
 
 select_entities = st.multiselect(
-    'What are you looking for entities',
+    'Choose entities you looking for ',
     ['COMMERCIAL_ITEM', 'DATE', 'EVENT', 'LOCATION', 'ORGANIZATION', 'PERSON', 'QUANTITY', 'TITLE', 'OTHER'],
     ['ORGANIZATION'])  #  default only 'ORGANIZATION'
 
@@ -68,7 +68,7 @@ check = st.button("Pick-up Entities")
 
 if check:
     TARGET = select_entities
-    st.info("Code is analyzing your text.")
+    #st.info("Now analyzing your text...")
     response = req(text_input,TARGET)
     #print(response)
     #st.info(response)
