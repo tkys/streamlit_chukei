@@ -55,15 +55,15 @@ check1 = st.button("Pick UP Organazaqtions")
 
 options = st.multiselect(
     'What are your favorite colors',
-    ['Green', 'Yellow', 'Red', 'Blue'],
-    ['Yellow', 'Red'])
+    ['COMMERCIAL_ITEM', 'DATE', 'EVENT', 'LOCATION', 'ORGANIZATION', 'PERSON', 'QUANTITY', 'TITLE', 'OTHER'],
+    ['ORGANIZATION'])
 
 st.table(options)
 st.text(options)
 
 
 if check1:
-    TARGET = 'ORGANIZATION'
+    TARGET = options #'ORGANIZATION'
     st.info("Code is analyzing your text.")
     response = req(text_input,TARGET)
     #print(response)
@@ -73,7 +73,7 @@ if check1:
     st.write(pd.DataFrame(response))
 
     #input_dict = req(text_input)
-    #str_position_dic = [x for x in input_dict if x['BeginOffset'] == 'ORGANIZATION'] # ORGANIZATION だけ抽出
+    #str_position_dic = [x for x in input_dict if x['BeginOffset'] == TARGET ] # ORGANIZATION だけ抽出
 
     str_position_dic = []
    
