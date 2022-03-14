@@ -27,8 +27,8 @@ def req(query,TARGET):
     input_dict =  r.json()['response']
     #print(input_dict)
     
-    #output_dict = [x for x in input_dict if x['Type'] == TARGET] # ORGANIZATION だけ抽出
-    output_dict = [x for x in input_dict if x['Type'] in ["ORGANIZATION","DATE"]] # ORGANIZATION だけ抽出
+    #output_dict = [x for x in input_dict if x['Type'] == ["ORGANIZATION"] ] # ORGANIZATION だけ抽出
+    output_dict = [x for x in input_dict if x['Type'] in TARGET ] # 選択対象抽出
 
     response = output_dict
 
@@ -52,19 +52,19 @@ def res_2_df_csvdownload_button(response):
 st.title("Pick up organizations from News")
 text_input = st.text_input("Enter some text", placeholder= "i.e. 10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。")
 
-options = st.multiselect(
+select_entities = st.multiselect(
     'What are your favorite colors',
     ['COMMERCIAL_ITEM', 'DATE', 'EVENT', 'LOCATION', 'ORGANIZATION', 'PERSON', 'QUANTITY', 'TITLE', 'OTHER'],
     ['ORGANIZATION'])  #  default only 'ORGANIZATION'
 
-#st.table(options)
-#st.text(options)
+#st.table(select_entities)
+#st.text(select_entities)
 
 check = st.button("Pick-up Entities")
 
 
 if check:
-    TARGET = options
+    TARGET = select_entities
     st.info("Code is analyzing your text.")
     response = req(text_input,TARGET)
     #print(response)
