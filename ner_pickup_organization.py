@@ -32,6 +32,22 @@ def req(query):
 
     return response
 
+@st.cache
+def convert_df_to_csv(df):
+    return df.to_csv().encode('utf-8')
+
+@st.cache
+def res_2_df_csvdownload_button(response):
+    df = pd.DataFrame(response)
+    csv = convert_df_to_csv(df)
+    st.download_button(
+        "Download .csv",
+        csv,
+        "file.csv",
+        "text/csv",
+        key='download-csv'
+    )
+
 st.title("Pick up organizations from News")
 text_input = st.text_input("Enter some text", placeholder= "i.e. 10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。")
 check1 = st.button("Pick UP Organazaqtions")
@@ -48,24 +64,12 @@ if check1:
     #str_position_dic = [x for x in input_dict if x['BeginOffset'] == 'ORGANIZATION'] # ORGANIZATION だけ抽出
 
     str_position_dic = []
-
-    
+   
     #for i in response:
     #    str_position_dic.append(i['BeginOffset'])
     #    str_position_dic.append(i['EndOffset'])
-
-    @st.cache
-    def convert_df(df):
-        return df.to_csv().encode('utf-8')
+    
+    res_2_df_csvdownload_button(response)
     
 
-    df = pd.DataFrame(response)
-    csv = convert_df(df)
 
-    st.download_button(
-        "Download .csv",
-        csv,
-        "file.csv",
-        "text/csv",
-        key='download-csv'
-    )
