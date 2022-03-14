@@ -51,6 +51,7 @@ def res_2_df_csvdownload_button(response):
 
 st.title("Pick up organizations from News")
 text_input = st.text_input("Enter some text", placeholder= "i.e. 10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。")
+st.info(text_input)
 
 select_entities = st.multiselect(
     'What are you looking for entities',
@@ -70,7 +71,7 @@ if check:
     #print(response)
     #st.info(response)
     st.subheader("text_input")
-    st.code(text_input)
+    st.info(text_input)
 
     st.text("result : " +  str( len(response) )  )
     st.write(pd.DataFrame(response))
