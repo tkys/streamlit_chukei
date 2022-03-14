@@ -49,11 +49,11 @@ def res_2_df_csvdownload_button(response):
         key='download-csv'
     )
 
-st.title("Pick up organizations from News")
+st.title("Pick up organizations from News📝")
 text_input = st.text_input("Enter some text", placeholder= "i.e. 10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。")
 
 if text_input != "":
-    st.subheader("text_input")
+    st.subheader("input_text📝")
     st.info(text_input)
 
 select_entities = st.multiselect(
@@ -63,7 +63,7 @@ select_entities = st.multiselect(
 
 #st.text(select_entities)
 
-check = st.button("Pick-up Entities")
+check = st.button("Pick-up Entities🔎")
 
 
 if check:
