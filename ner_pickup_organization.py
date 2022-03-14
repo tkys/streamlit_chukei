@@ -53,7 +53,7 @@ check1 = st.button("Pick UP Organazaqtions")
 if check1:
     TARGET = 'ORGANIZATION'
     st.info("Code is analyzing your text.")
-    response = req(text_input)
+    response = req(text_input,TARGET)
     #print(response)
     #st.info(response)
 
