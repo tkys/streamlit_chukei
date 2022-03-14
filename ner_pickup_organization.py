@@ -39,9 +39,9 @@ if check1:
     st.info("Code is analyzing your text.")
     response = req(text_input)
     #print(response)
-    st.text("result : " +  str( len(response) )  )
+    #st.info(response)
 
-    st.info(response)
+    st.text("result : " +  str( len(response) )  )
     st.write(pd.DataFrame(response))
 
     #input_dict = req(text_input)
