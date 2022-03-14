@@ -39,7 +39,7 @@ if check1:
     st.info("Code is analyzing your text.")
     response = req(text_input)
     #print(response)
-    st.text("result : " +  str(len(response["hojin-infos"])) )
+    st.text("result : " +  str( len(response) )  )
 
     st.info(response)
     st.write(pd.DataFrame(response))
