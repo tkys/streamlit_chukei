@@ -51,19 +51,20 @@ def res_2_df_csvdownload_button(response):
 
 st.title("Pick up organizations from News")
 text_input = st.text_input("Enter some text", placeholder= "i.e. 10日イオンモールは、名古屋市熱田区の商業施設「イオンモール熱田」で、開業以来初の全面改装を実施すると発表した。今春から秋にかけて、専門店約30店を刷新する。")
-check1 = st.button("Pick UP Organazaqtions")
 
 options = st.multiselect(
     'What are your favorite colors',
     ['COMMERCIAL_ITEM', 'DATE', 'EVENT', 'LOCATION', 'ORGANIZATION', 'PERSON', 'QUANTITY', 'TITLE', 'OTHER'],
-    ['ORGANIZATION'])
+    ['ORGANIZATION'])  #  default only 'ORGANIZATION'
 
-st.table(options)
-st.text(options)
+#st.table(options)
+#st.text(options)
+
+check = st.button("Pick-up Entities")
 
 
-if check1:
-    TARGET = options #'ORGANIZATION'
+if check:
+    TARGET = options
     st.info("Code is analyzing your text.")
     response = req(text_input,TARGET)
     #print(response)
